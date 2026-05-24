@@ -42,15 +42,14 @@ A real-time cryptocurrency price dashboard with a Bloomberg-terminal aesthetic. 
 Both backend and frontend follow the same hexagonal pattern: inner layers know nothing of outer ones, and dependencies point inward through interfaces ("ports").
 
 ```
-Backend (Rust)                      Frontend (TypeScript)
-├── domain/          entities       ├── domain/          types
-├── application/     ports +        ├── application/     ports +
-│                    use cases      │                    use cases
-├── infrastructure/  adapters       ├── infrastructure/  adapters
-│   ├── persistence  (sqlx)         │   ├── http          (fetch)
-│   ├── external     (coingecko)    │   ├── websocket      (live)
-│   └── scheduler    (polling)      │   └── container      (composition root)
-└── presentation/    axum handlers  └── presentation/    components + hooks
+## Architecture — Hexagonal (both layers)
+
+| Layer | Backend (Rust) | Frontend (TypeScript) |
+|-------|----------------|------------------------|
+| **domain** | entities | types |
+| **application** | ports + use cases | ports + use cases |
+| **infrastructure** | sqlx · CoinGecko · scheduler | http · websocket · container |
+| **presentation** | Axum handlers | React components + hooks |
 ```
 
 The backend polls CoinGecko on an interval, stores snapshots in PostgreSQL, and broadcasts each batch to WebSocket subscribers. The frontend reads via REST for the initial load and subscribes to the WebSocket for live updates — components depend only on use cases, never on `fetch` or the API URL directly.
@@ -149,7 +148,9 @@ This project is actively being developed. Planned additions:
 - [ ] Deployment guide
 - [ ] Additional timezones / configurable clocks
 
----
+## Screenshots
+
+
 
 ## License
 
