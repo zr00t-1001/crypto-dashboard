@@ -1,4 +1,4 @@
-# crypto·watch terminal
+# Crypto·Watch Terminal
 
 A real-time cryptocurrency price dashboard with a Bloomberg-terminal aesthetic. Live prices, high/low ranges, interactive charts, relative-performance overlays, multi-timezone clocks, and CSV/JSON export — built on a clean-architecture Rust backend and an Astro + React frontend.
 
