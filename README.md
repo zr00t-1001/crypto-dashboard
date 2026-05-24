@@ -170,7 +170,15 @@ This project is actively being developed. Planned additions:
 - [ ] Additional timezones / configurable clocks
 
 ## Screenshots
+### Dark theme
+![Dashboard — dark theme](docs/screenshots/dashboard_0_dark.png)
+![Dashboard — dark theme](docs/screenshots/dashboard_1_dark.png)
+![Dashboard — dark theme](docs/screenshots/dashboard_2_dark.png)
 
+### Light theme
+![Dashboard — light theme](docs/screenshots/dashboard_0_light.png)
+![Dashboard — light theme](docs/screenshots/dashboard_1_light.png)
+![Dashboard — light theme](docs/screenshots/dashboard_2_light.png)
 
 
 ## License
