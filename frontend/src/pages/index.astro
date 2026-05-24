@@ -1,0 +1,59 @@
+---
+import Base from "../presentation/layouts/Base.astro";
+import WorldClocks from "../presentation/components/WorldClocks.tsx";
+import PriceCards from "../presentation/components/PriceCards.tsx";
+import Extremes from "../presentation/components/Extremes.tsx";
+import PriceCharts from "../presentation/components/PriceCharts.tsx";
+import MultiCoinChart from "../presentation/components/MultiCoinChart.tsx";
+import DataExport from "../presentation/components/DataExport.tsx";
+import ThemeToggle from "../presentation/components/ThemeToggle.tsx";
+---
+
+<Base title="crypto·watch terminal">
+  <header class="mb-5 flex items-end justify-between border-b pb-4" style="border-color: var(--grid-strong)">
+    <div>
+      <h1 class="text-2xl font-extrabold tracking-tight">
+        CRYPTO<span style="color: var(--color-accent)">·</span>WATCH
+        <span class="ml-1" style="color: var(--text-dim); font-size: 13px;">TERMINAL</span>
+      </h1>
+      <p class="mt-1 label">
+        <span class="blink" style="color: var(--color-up)">●</span>
+        LIVE · BTC LTC SOL ETH · USD EUR
+      </p>
+    </div>
+    <ThemeToggle client:load />
+  </header>
+
+  <section class="mb-5">
+    <WorldClocks client:only="react" />
+  </section>
+
+  <section class="mb-5">
+    <p class="label mb-2">SPOT PRICES</p>
+    <PriceCards client:load />
+  </section>
+
+  <section class="mb-5">
+    <p class="label mb-2">HIGH / LOW RANGE</p>
+    <Extremes client:load />
+  </section>
+
+  <section class="mb-5">
+    <p class="label mb-2">PRICE SERIES</p>
+    <PriceCharts client:load />
+  </section>
+
+  <section class="mb-5">
+    <p class="label mb-2">RELATIVE PERFORMANCE</p>
+    <MultiCoinChart client:load />
+  </section>
+
+  <section class="mb-5">
+    <p class="label mb-2">DATA EXPORT</p>
+    <DataExport client:load />
+  </section>
+
+  <footer class="mt-8 border-t pt-4 label" style="border-color: var(--grid)">
+    CRYPTO·WATCH TERMINAL · DATA VIA COINGECKO · BUILT ON RUST + AXUM + ASTRO
+  </footer>
+</Base>

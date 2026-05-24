@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-accent: #ffb000;
+  --color-accent-dim: #b37b00;
+  --color-up: #00d68f;
+  --color-down: #ff5c5c;
+}
+
+:root, .dark {
+  --bg: #050506;
+  --bg-panel: #0c0d0f;
+  --bg-row: #101113;
+  --grid: #1c1d21;
+  --grid-strong: #2a2b30;
+  --text: #e8e8ea;
+  --text-dim: #6f7177;
+  --text-faint: #45464b;
+}
+
+.light {
+  --bg: #f4f1ea;
+  --bg-panel: #fbfaf6;
+  --bg-row: #ffffff;
+  --grid: #ddd8cc;
+  --grid-strong: #c9c3b3;
+  --text: #15140f;
+  --text-dim: #6b665b;
+  --text-faint: #a09a8c;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+body { margin: 0; min-height: 100vh; }
+
+.tabular { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+.scanlines::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(255,176,0,0.012) 3px, transparent 4px);
+  z-index: 1;
+}
+
+@keyframes blink { 0%,49%{opacity:1;} 50%,100%{opacity:0.15;} }
+.blink { animation: blink 1.4s steps(1) infinite; }
+
+.label { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); }
+
+/* Shimmer skeleton for loading states. */
+.shimmer {
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    var(--grid) 0%,
+    var(--grid-strong) 50%,
+    var(--grid) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.3s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

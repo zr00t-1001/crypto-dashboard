@@ -1,0 +1,37 @@
+---
+import "../../styles/global.css";
+const { title = "Crypto Dashboard" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Sora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      (function () {
+        try {
+          const t = localStorage.getItem("theme") || "dark";
+          document.documentElement.classList.remove("dark", "light");
+          document.documentElement.classList.add(t);
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body class="scanlines">
+    <div
+      class="mx-auto max-w-[1280px] px-6 py-6 max-md:px-3"
+      style="position:relative; z-index:2;"
+    >
+      <slot />
+    </div>
+  </body>
+</html>
+
