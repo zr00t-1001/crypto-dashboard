@@ -41,16 +41,37 @@ A real-time cryptocurrency price dashboard with a Bloomberg-terminal aesthetic. 
 
 Both backend and frontend follow the same hexagonal pattern: inner layers know nothing of outer ones, and dependencies point inward through interfaces ("ports").
 
-```
-## Architecture — Hexagonal (both layers)
+## Architecture
 
-| Layer | Backend (Rust) | Frontend (TypeScript) |
-|-------|----------------|------------------------|
-| **domain** | entities | types |
-| **application** | ports + use cases | ports + use cases |
-| **infrastructure** | sqlx · CoinGecko · scheduler | http · websocket · container |
-| **presentation** | Axum handlers | React components + hooks |
+Both backend and frontend follow the same hexagonal pattern — inner layers know nothing of outer ones; dependencies point inward through interfaces ("ports").
+
+### Backend (Rust)
+
 ```
+src/
+├── domain/             # entities — Coin, Currency, Price, Period
+├── application/        # ports (traits) + use cases
+├── infrastructure/
+│   ├── persistence/    # PostgreSQL via sqlx (TLS)
+│   ├── external/       # CoinGecko HTTP client
+│   └── scheduler/      # polling loop + broadcast
+└── presentation/       # Axum handlers, router, WebSocket, DTOs
+```
+
+### Frontend (TypeScript)
+
+```
+frontend/src/
+├── domain/             # types mirroring the backend
+├── application/        # ports + use cases
+├── infrastructure/
+│   ├── http/           # fetch-based gateway
+│   ├── websocket/      # live price stream
+│   └── container.ts    # composition root (singleton)
+└── presentation/       # React components + hooks + Astro layouts
+```
+
+The backend polls CoinGecko, stores snapshots in PostgreSQL, and broadcasts each batch over WebSockets. The frontend reads via REST for the initial load and subscribes to the WebSocket for live updates. In both, the dependency rule holds: presentation depends on use cases, never on `fetch`/`sqlx`/the API URL directly.
 
 The backend polls CoinGecko on an interval, stores snapshots in PostgreSQL, and broadcasts each batch to WebSocket subscribers. The frontend reads via REST for the initial load and subscribes to the WebSocket for live updates — components depend only on use cases, never on `fetch` or the API URL directly.
 
